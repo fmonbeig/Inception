@@ -1,0 +1,38 @@
+Docker login
+Docker tourne avec les ressources du PC VS VM qui a ses ressources propres
+
+Connection to Docker Hub to Download image
+
+Docker image
+Show all the image available
+
+Docker ps
+show all the image running
+
+Download Img
+docker pull img_name
+
+Run Img
+docker run -it -d img_name   (-it is for interactive -d for detach)
+-p 8080:80 is for transferring information between port 8080 to port 80
+
+Stop a container running
+docker stop container_id (you cab find it with docker ps)
+
+Kill the container and all is information
+docker rm container_id
+
+Delete all images / containers / caches in PC
+docker system prune
+
+Enter a container with the id if we want to change thing in it
+docker exec -ti Container_id bash  (-ti is for an operationnal shell)
+
+Build an image with a dockerfile
+docker build -t image_name path (ex : docker build -t My_Nginx .)
+
+
+in a container you can install vim if you want to do modification
+
+apt-get update
+apt-get install vim

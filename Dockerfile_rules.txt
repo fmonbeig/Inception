@@ -1,0 +1,39 @@
+FROM alpine:3.14  ou FROM debian:9 (Download the OS with FROM)
+
+
+RUN is for executing a command in the container (we have to limit the use of RUN to reduce the numbers of layers)
+RUN apt-get update -yq \
+&& apt-get install curl gnupg -yq \
+&& curl -sL https://deb.nodesource.com/setup_10.x | bash \
+&& apt-get install nodejs -yq \
+&& apt-get clean -y
+
+ADD permet de copier des elements dans un dossier
+Ici c'est les elements de notre rep courant qui sera dans le dossier /app de l'image
+ADD . /app/
+
+WORKDIR permet de se deplacer dans un dossier (change le repertoire courant)
+WORKDIR /app
+
+EXPOSE permet de preciser sur quel port l'application ecoute
+Expose 2020
+
+VOLUME permet d'indiquer quel répertoire vous voulez partager avec votre host.
+
+CMD est la commande que fait le conteneur lors de son demarrage
+CMD ["echo", "Hello World !"]  (Do the command)
+
+
+FROM qui vous permet de définir l'image source ;
+
+RUN qui vous permet d’exécuter des commandes dans votre conteneur ;
+
+ADD qui vous permet d'ajouter des fichiers dans votre conteneur ;
+
+WORKDIR qui vous permet de définir votre répertoire de travail ;
+
+EXPOSE qui permet de définir les ports d'écoute par défaut ;
+
+VOLUME qui permet de définir les volumes utilisables ;
+
+CMD qui permet de définir la commande par défaut lors de l’exécution de vos conteneurs Docker.
