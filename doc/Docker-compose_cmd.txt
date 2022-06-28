@@ -1,0 +1,29 @@
+Create all container
+docker-compose -d up (-d for background)
+
+Destroy all container
+docker-compose down
+
+See stack status
+docker-compose ps
+
+See log
+docker-compose logs -f --tail 5 (only the 5 occurences)
+
+Validate the syntax of the docker compose
+➜ docker-compose config
+ERROR: The Compose file './docker-compose.yml' is invalid because:
+Unsupported config option for services.db: 'images'
+
+
+EXEMPLE
+
+version: '3'  (version of docker-compose)
+
+services:
+  db:  (name of the container)
+    image: mysql:5.7  (image to use or use the command build PATH)
+    volumes:  (if you want to stock information for a data base for example)
+    - db_data:/var/lib/mysql
+    restart: always  (if crash, restart)
+

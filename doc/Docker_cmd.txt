@@ -3,11 +3,11 @@ Docker tourne avec les ressources du PC VS VM qui a ses ressources propres
 
 Connection to Docker Hub to Download image
 
-Docker image
 Show all the image available
+docker image
 
-Docker ps
 show all the image running
+docker ps
 
 Download Img
 docker pull img_name
@@ -29,8 +29,10 @@ Enter a container with the id if we want to change thing in it
 docker exec -ti Container_id bash  (-ti is for an operationnal shell)
 
 Build an image with a dockerfile
-docker build -t image_name path (ex : docker build -t My_Nginx .)
+docker build -t image_name PATH (ex : docker build -t My_Nginx .) -t is for naming
 
+Search an image on the terminal
+docker search image_name
 
 in a container you can install vim if you want to do modification
 

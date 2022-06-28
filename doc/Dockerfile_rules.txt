@@ -10,6 +10,7 @@ RUN apt-get update -yq \
 
 ADD permet de copier des elements dans un dossier
 Ici c'est les elements de notre rep courant qui sera dans le dossier /app de l'image
+elements qui ont été téléchargé via le apt-get
 ADD . /app/
 
 WORKDIR permet de se deplacer dans un dossier (change le repertoire courant)
@@ -24,16 +25,15 @@ CMD est la commande que fait le conteneur lors de son demarrage
 CMD ["echo", "Hello World !"]  (Do the command)
 
 
-FROM qui vous permet de définir l'image source ;
+FROM	permet de définir l'image source ;
+RUN		permet d’exécuter des commandes dans votre conteneur ;
+ADD		permet d'ajouter des fichiers dans votre conteneur ;
+WORKDIR	permet de définir votre répertoire de travail ;
+EXPOSE	permet de définir les ports d'écoute par défaut ;
+VOLUME	permet de définir les volumes utilisables ;
+CMD		permet de définir la commande par défaut lors de l’exécution de vos conteneurs Docker.
+ENTRYPOINT	(pareil qu'au dessus mais ne peut pas etre bloquer par un docker-compose ou une ligne de command)
+COPY	Permet de copier un element de son PC sur son containers
 
-RUN qui vous permet d’exécuter des commandes dans votre conteneur ;
+.dockerignore permet de ne pas bouger certains fichiers avec ADD
 
-ADD qui vous permet d'ajouter des fichiers dans votre conteneur ;
-
-WORKDIR qui vous permet de définir votre répertoire de travail ;
-
-EXPOSE qui permet de définir les ports d'écoute par défaut ;
-
-VOLUME qui permet de définir les volumes utilisables ;
-
-CMD qui permet de définir la commande par défaut lors de l’exécution de vos conteneurs Docker.

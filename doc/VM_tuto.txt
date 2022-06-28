@@ -1,0 +1,15 @@
+Pour la VM :
+Pour creer sa machine virtuelle
+- S'assurer qu'on copie tout bien dans le s-goinfre grace a la commande
+curl https://cdn.42.fr/xubuntu-42.ova -o xubuntu-42.ova
+dans /sgoinfre/goinfre/Perso/$TON_USER_FILE (que tu dois créer)
+
+- Ensuite importer le fichier .ova via virtualbox pour creer la machine virtuelle
+Pour creer un dossier partage
+1. dans virtual box aller dans settings -> Shared Folder -> add un dossier -> Mettre le chemin du dossier
+-> lui donner un nom -> cliquer sur auto-mount -> mount point: /mnt/Documents -> cocher Make Permanent puis faire ok
+
+2. Dans la VM, il faut donner les droits pour voir le fichier a "user42"
+-> faire dans le terminal la commande sudo addgroup user42 vboxsf
+
+3. Reboot la machine
