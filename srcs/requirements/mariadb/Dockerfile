@@ -4,9 +4,8 @@ RUN apt-get update -yq \
 && apt-get install mariadb-server -yq \
 && apt-get clean -y
 
-COPY (configuration file into /tmp/configure.sh)
+COPY conf/ini.sh .
 
 EXPOSE 3306
-VOLUME /app/logs
 
-ENTRYPOINT {""} mysqld
+ENTRYPOINT ["sh", "ini.sh"]

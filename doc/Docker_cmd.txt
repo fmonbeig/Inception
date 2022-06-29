@@ -26,7 +26,7 @@ Delete all images / containers / caches in PC
 docker system prune
 
 Enter a container with the id if we want to change thing in it
-docker exec -ti Container_id bash  (-ti is for an operationnal shell)
+docker exec -it Container_id bash  (-it is for an operationnal shell)
 
 Build an image with a dockerfile
 docker build -t image_name PATH (ex : docker build -t My_Nginx .) -t is for naming

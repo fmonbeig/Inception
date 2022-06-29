@@ -2,17 +2,20 @@ version: '3'
 
 services:
   db:
-    build: requirement/mariadb
+    build: requirements/mariadb
+    container_name: mariadb
+    env_file: .env
+    image: mariadb
     volumes:
-    -  /home/fmonbeig/data:/var/lib/mysql
+    -  ~/data:/var/lib/mysql
+    # -  /home/fmonbeig/data:/var/lib/mysql
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: somewordpress
 
   # wordpress:
   #   depends_on:
   #     - db
   #   build: requirement/wordpress
+  #   container_name: mariadb
   #   ports:
   #     - "8000:80"
   #   restart: always

@@ -1,0 +1,24 @@
+Dans le containers
+Lancer MariaDB ->
+mysql -u root -p -h localhost
+
+Une fois lancé on peut utiliser une nouvelle liste de commande
+
+WARNING = Always put an ; at the end of a CMD
+EX :
+USE [database name] − Sets the current default database.
+
+CREATE DATABASE bookstore;
+CREATE TABLE bookstore;
+
+DROP TABLE
+
+SHOW DATABASES − Lists the databases currently on the server.
+
+SHOW TABLES − Lists all non-temporary tables.
+
+SHOW COLUMNS FROM [table name] − Provides column information pertaining to the specified table.
+
+SHOW INDEX FROM TABLENAME [table name] − Provides table index information relating to the specified table.
+
+SHOW TABLE STATUS LIKE [table name]\G – − Provides tables with information about non-temporary tables, and the pattern that appears after the LIKE clause is used to fetch table names.
