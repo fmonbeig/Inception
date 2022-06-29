@@ -22,8 +22,13 @@ version: '3'  (version of docker-compose)
 
 services:
   db:  (name of the container)
-    image: mysql:5.7  (image to use or use the command build PATH)
+    image: mysql:5.7  (image to use or use the command build: PATH)
     volumes:  (if you want to stock information for a data base for example)
     - db_data:/var/lib/mysql
     restart: always  (if crash, restart)
+
+
+services = debut de la declaration des services
+depends_on = les dependances de chaque services
+
 

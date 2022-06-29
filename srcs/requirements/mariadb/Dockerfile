@@ -9,4 +9,4 @@ COPY (configuration file into /tmp/configure.sh)
 EXPOSE 3306
 VOLUME /app/logs
 
-CMD mysqld
+ENTRYPOINT {""} mysqld
