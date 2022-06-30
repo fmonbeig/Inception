@@ -1,16 +1,15 @@
 #!/bin/sh
 
-#set -e #exit if a command have an exit status 1
+set -e #exit if a command have an exit status 1
 
-mysql -u root -e "CREATE DATABASE ${MYSQL_DB};"
-mysql -u root -e "CREATE USER '${MYSQL_ADMIN}'@'%' IDENTIFIED BY '${MYSQL_ADMIN_PASSWORD}';"
+#Myconf.cnf have already been configured
+#we will enter the mysql to configurate user and create the Wordpress database
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
+mysql -u root -e "CREATE USER IF NOT EXISTS '${MYSQL_ADMIN}'@'%' IDENTIFIED BY '${MYSQL_ADMIN_PASSWORD}';"
 mysql -u root -e "GRANT ALL ON *.* TO '${MYSQL_ADMIN}'@'%';"
 mysql -u root -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_USERPASSWORD}';"
 mysql -u root -e "GRANT ALL ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
-mysql -u root -e "DELETE FROM mysql.user WHERE user='root';"
-mysql -u root -e "FLUSH PRIVILEGES;"
-killall mysqld
+mysql -u root -e "FLUSH PRIVILEGES;" #reload all user rules
+killall mysqld						# kill mysqld
 
-
-# mkdir -p /var/run/mysqld && mkdir -p /run/mysqld
-# chown -R mysql:root /run/mysqld && chown -R mysql:root /var/run/mysqld
+mysqld #launch mysql server
