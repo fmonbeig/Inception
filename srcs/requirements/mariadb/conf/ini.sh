@@ -1,8 +1,7 @@
 #!/bin/sh
 
-set -e #exit if a command have an exit status 1
+#set -e #exit if a command have an exit status 1
 
-mkdir poil
 mysql -u root -e "CREATE DATABASE ${MYSQL_DB};"
 mysql -u root -e "CREATE USER '${MYSQL_ADMIN}'@'%' IDENTIFIED BY '${MYSQL_ADMIN_PASSWORD}';"
 mysql -u root -e "GRANT ALL ON *.* TO '${MYSQL_ADMIN}'@'%';"
