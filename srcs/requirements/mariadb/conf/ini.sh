@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e #exit if a command have an exit status 1
+set -x #for more information in terminal
 
 #Myconf.cnf have already been configured
 #we will enter the mysql to configurate user and create the Wordpress database

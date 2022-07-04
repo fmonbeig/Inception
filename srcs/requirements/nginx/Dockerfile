@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:buster
 
 RUN apt-get update -yq \
 && apt-get install curl gnupg -yq \

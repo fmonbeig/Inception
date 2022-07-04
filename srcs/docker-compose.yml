@@ -7,8 +7,7 @@ services:
     env_file: .env
     image: mariadb
     volumes:
-    -  ~/data:/var/lib/mysql
-    # -  /home/fmonbeig/data:/var/lib/mysql
+    - /home/user42/data:/var/lib/mysql
     restart: always
 
   # wordpress:

@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:buster
 
 RUN apt-get update -yq \
 && apt-get install wordpress -yq \
@@ -6,7 +6,6 @@ RUN apt-get update -yq \
 
 # COPY (configuration file into /tmp/configure.sh)
 
-EXPOSE 3306
-VOLUME /app/logs
+EXPOSE 9000
 
-ENTRYPOINT mysqld
+ENTRYPOINT
