@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+#------------MARIADB------------#
   db:
     build: requirements/mariadb
     container_name: mariadb
@@ -10,20 +11,40 @@ services:
     - /home/user42/data:/var/lib/mysql
     restart: always
 
-  # wordpress:
-  #   depends_on:
-  #     - db
-  #   build: requirement/wordpress
-  #   container_name: mariadb
-  #   ports:
-  #     - "8000:80"
-  #   restart: always
-  #   environment:
-  #     WORDPRESS_DB_HOST: db:3306
-  #     WORDPRESS_DB_USER: wordpress
-  #     WORDPRESS_DB_PASSWORD: wordpress
-  #     WORDPRESS_DB_NAME: wordpress
+#------------WORDPRESS------------#
 
+  wordpress:
+    depends_on:
+      - db
+    build: requirement/wordpress
+    container_name: wordpress
+    env_file: .env
+    image : wordpress
+    volumes:
+    - www:/var/www/html
+    restart: always
+
+#------------VOLUMES------------#
+volumes:
+    database:
+       driver: local # default
+       driver_opts:
+         type: none
+         device: ${VOLUME_DATABASE}
+         o: bind
+    www:
+       driver: local # default
+       driver_opts:
+         type: none
+         device: ${VOLUME_WEBSITE}
+         o: bind
+
+#------------NETWORKS------------#
+
+# networks:
+#   inception:
+#     name: ???
+#     driver: ???
 
 # On peut mettre des variables d'env
 # ex : image: "webapp:${TAG}"
