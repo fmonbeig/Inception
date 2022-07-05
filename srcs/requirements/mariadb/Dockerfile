@@ -4,7 +4,7 @@ RUN apt-get update -yq \
 	&& apt-get -yq upgrade \
 	&& apt-get install mariadb-server -yq
 
-COPY conf/init.sh .
+COPY conf/ini.sh .
 COPY conf/default.conf /etc/mysql/my.cnf
 COPY conf/default.conf /etc/my.cnf
 COPY conf/default.conf ~/my.cnf
@@ -20,4 +20,5 @@ RUN mkdir -p /var/run/mysqld \
 EXPOSE 3306
 
 ENTRYPOINT ["sh", "ini.sh"]
+CMD mysqld
 

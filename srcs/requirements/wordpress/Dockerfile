@@ -22,10 +22,33 @@ RUN apt-get update -yq \
 	php7.3-xml \
 	php7.3-zip
 
+ENV WORDPRESS_ADMIN=admin \
+	WORDPRESS_ADMIN_PASSWORD=admin_password \
+	WORDPRESS_ADMIN_MAIL=fake_admin@student.42.fr \
+	WORDPRESS_USER=fmonbeig \
+	WORDPRESS_USER_PASSWORD=password \
+	WORDPRESS_USER_MAIL=fmonbeig@student.42.fr \
+	WORDPRESS_URL=fmonbeig.42.fr \
+	WORDPRESS_TITLE=Spinning_Top\
+	MYSQL_DATABASE=wordpress \
+	MYSQL_ROOT_PASSWORD=password \
+	MYSQL_USER=fmonbeig \
+	MYSQL_USERPASSWORD=password \
+	MYSQL_ADMIN=admin \
+	MYSQL_ADMIN_PASSWORD=admin_password \
+	MYSQL_PASSWORD=password
+
 RUN chmod +x wp-cli.phar \
 &&	mv wp-cli.phar /usr/local/bin/wp \
-&& wp cli update
+&&	wp cli update
+
+
+COPY conf/ini.sh .
+RUN chmod +x ini.sh \
+&&	mkdir -p /var/www/html
+#peut etre faire un chown sur le www/html
 
 EXPOSE 9000
 
 ENTRYPOINT ["sh", "ini.sh"]
+#CMD

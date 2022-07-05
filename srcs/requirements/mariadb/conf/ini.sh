@@ -35,7 +35,8 @@ mysql -u root -e "FLUSH PRIVILEGES;" #reload all user rules
 
 #------------RELOAD MYSQL------------#
 killall mysqld
-mysqld
+
+exec "$@"
 
 #mysql -u root -e
 #stand for mysql --user root --execute

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #set -e #Exit if we have a non-zero after a CMD
-#set -x #for more information in terminal(debugg)
+set -x #for more information in terminal(debugg)
 
 #We use the wp cli to create the wp-config.php and config our wordpress
 # https://wp-cli.org/fr/
@@ -35,12 +35,16 @@ wp user create ${WORDPRESS_USER} ${WORDPRESS_USER_MAIL} \
 --path=/var/www/html \
 --first_name=florian \
 --last_name=MONBEIG \
---description=this user is very cool \
+# --description=this user is very cool \
 --role=author \
---user_pass=${WORDPRESS_USER_PASSWORD}
+--user_pass=${WORDPRESS_USER_PASSWORD}n
 
-mysqld
+/usr/sbin/php-fpm7.3 --nodaemonize --allow-to-run-as-root  # c'est peut etre ca que l o doit mettre dans le dockerfile
 
+# -F, --nodaemonize
+#       force to stay in foreground, and ignore daemonize option from config file
+# -R, --allow-to-run-as-root
+#         Allow pool to run as root (disabled by default)
 # php-fpm #launch mysql server
 
 # --allow-root
