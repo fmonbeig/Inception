@@ -8,21 +8,20 @@ services:
     env_file: .env
     image: mariadb
     volumes:
-    - /home/user42/data:/var/lib/mysql
+    - database:/var/lib/mysql
     restart: always
 
 #------------WORDPRESS------------#
-
-  wordpress:
-    depends_on:
-      - db
-    build: requirement/wordpress
-    container_name: wordpress
-    env_file: .env
-    image : wordpress
-    volumes:
-    - www:/var/www/html
-    restart: always
+  # wordpress:
+  #   depends_on:
+  #     - db
+  #   build: requirements/wordpress
+  #   container_name: wordpress
+  #   env_file: .env
+  #   image : wordpress
+  #   volumes:
+  #   - www:/var/www/html
+  #   restart: always
 
 #------------VOLUMES------------#
 volumes:
@@ -32,12 +31,12 @@ volumes:
          type: none
          device: ${VOLUME_DATABASE}
          o: bind
-    www:
-       driver: local # default
-       driver_opts:
-         type: none
-         device: ${VOLUME_WEBSITE}
-         o: bind
+    # www:
+    #    driver: local # default
+    #    driver_opts:
+    #      type: none
+    #      device: ${VOLUME_WEBSITE}
+    #      o: bind
 
 #------------NETWORKS------------#
 
@@ -46,7 +45,4 @@ volumes:
 #     name: ???
 #     driver: ???
 
-# On peut mettre des variables d'env
-# ex : image: "webapp:${TAG}"
-#
-#
+#mkdir -p PATH construit le chemin et les dossier en recursif (a mettre dans le makefile ??)

@@ -3,17 +3,8 @@ FROM debian:buster
 RUN apt-get update -yq \
 	&& apt-get -yq upgrade \
 	&& apt-get install mariadb-server -yq
-	# && apt-get install mysql-server
 
-# ENV MYSQL_ROOT_PASSWORD=password \
-# 	MYSQL_USER=fmonbeig \
-# 	MYSQL_DATABASE=wordpress \
-# 	MYSQL_USERPASSWORD=password \
-# 	MYSQL_ADMIN=admin \
-# 	MYSQL_ADMIN_PASSWORD=admin_password \
-# 	MYSQL_PASSWORD=password
-
-COPY conf/ini.sh .
+COPY conf/init.sh .
 COPY conf/default.conf /etc/mysql/my.cnf
 COPY conf/default.conf /etc/my.cnf
 COPY conf/default.conf ~/my.cnf
