@@ -1,17 +1,23 @@
 FROM debian:buster
 
 RUN apt-get update -yq \
-&& apt-get install curl gnupg -yq \
-&& curl -sL https://deb.nodesource.com/setup_10.x | bash \
-&& apt-get install nodejs -yq \
-&& apt-get clean -y
+&& apt-get install nginx openssl -yq \
 
-ADD . /app/
-WORKDIR /app
-RUN
+EXPOSE 443
 
-EXPOSE 2368
-VOLUME /app/logs
+COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD npm run start
+CMD nginx
 
+# RUN mkdir /etc/nginx/ssl
+# RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+#         -out /etc/nginx/ssl/raccoman.pem \
+#         -keyout /etc/nginx/ssl/raccoman.key \
+#         -subj "/C=IT/ST=Rome/L=Rome/O=42 School/OU=raccoman/CN=raccoman/"
+
+# # nginx config
+# RUN mkdir -p /run/nginx
+# COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+# # Start nginx
+# ENTRYPOINT ["nginx", "-g", "daemon off;"]
