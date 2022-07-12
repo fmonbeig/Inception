@@ -38,5 +38,13 @@ killall mysqld
 
 exec "$@"
 
+#------------INDEX------------#
 #mysql -u root -e
 #stand for mysql --user root --execute
+
+#------------INTERACTION------------#
+# 1- connection
+# Since we have delete root we have to connect with admin
+# mysql -u admin -p  (then the pw)
+# 2- The database
+# SHOW DATABASES;
