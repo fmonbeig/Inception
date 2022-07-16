@@ -2,26 +2,46 @@ version: '3'
 
 services:
 #------------MARIADB------------#
-  db:
+  mariadb:
     build: requirements/mariadb
     container_name: mariadb
     env_file: .env
     image: mariadb
     volumes:
     - database:/var/lib/mysql
+    networks:
+      - inception
     restart: always
 
 #------------WORDPRESS------------#
-  # wordpress:
-  #   depends_on:
-  #     - db
-  #   build: requirements/wordpress
-  #   container_name: wordpress
-  #   env_file: .env
-  #   image : wordpress
-  #   volumes:
-  #   - www:/var/www/html
-  #   restart: always
+  wordpress:
+    depends_on:
+      - mariadb
+    build: requirements/wordpress
+    container_name: wordpress
+    env_file: .env
+    image : wordpress
+    volumes:
+    - www:/var/www/html
+    networks:
+      - inception
+    restart: always
+
+#------------NGINX------------#
+  nginx:
+    depends_on:
+      - wordpress
+    build: requirements/nginx
+    container_name: nginx
+    env_file: .env
+    image : nginx
+    ports:
+      -"443:443"
+    volumes:
+    - www:/var/www/html  #it's the same that wordpress because html file have to be in this two place
+    networks:
+      - inception
+    restart: always
 
 #------------VOLUMES------------#
 volumes:
@@ -31,18 +51,17 @@ volumes:
          type: none
          device: ${VOLUME_DATABASE}
          o: bind
-    # www:
-    #    driver: local # default
-    #    driver_opts:
-    #      type: none
-    #      device: ${VOLUME_WEBSITE}
-    #      o: bind
+    www:
+       driver: local
+       driver_opts:
+         type: none
+         device: ${VOLUME_WEBSITE}
+         o: bind
 
 #------------NETWORKS------------#
 
-# networks:
-#   inception:
-#     name: ???
-#     driver: ???
+networks:
+  inception:
+    driver: bridge
 
-#mkdir -p PATH construit le chemin et les dossier en recursif (a mettre dans le makefile ??)
+#with bridge we can create an intern network for all the containers (great when you have one service per container)

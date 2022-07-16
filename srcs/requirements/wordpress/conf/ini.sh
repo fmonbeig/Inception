@@ -1,5 +1,3 @@
-#!/bin/sh
-
 #set -e #Exit if we have a non-zero after a CMD
 set -x #for more information in terminal(debugg)
 
@@ -7,9 +5,13 @@ set -x #for more information in terminal(debugg)
 # https://wp-cli.org/fr/
 # https://developer.wordpress.org/cli/commands/
 
-sleep 6
 #------------DL & EXTRACT WORDPRESS------------#
  wp core download --allow-root --path=/var/www/html  # you can do command even if you are root
+
+#------------WAITING FOR MARIADB------------#
+while ! mysqladmin -hmariadb -u${MYSQL_USER} -p${MYSQL_USERPASSWORD} ping; do
+	sleep 2
+done
 
 #------------CONFIG FILE------------#
 #creation of the wp-config.php
@@ -19,7 +21,7 @@ wp config create \
 --dbname=${MYSQL_DATABASE} \
 --dbuser=${MYSQL_USER} \
 --dbpass=${MYSQL_USERPASSWORD} \
---dbhost=mariadb:3306 #Use we docker compose and when mariadb is up
+--dbhost=mariadb:3306
 
 #------------INSTALL WORDPRESS------------#
 # the famous 5 minute install in 0.0001s
@@ -40,21 +42,8 @@ wp user create ${WORDPRESS_USER} ${WORDPRESS_USER_MAIL} \
 --role=author \
 --user_pass=${WORDPRESS_USER_PASSWORD}
 
-
-
-    # wp core download --allow-root
-    # wp config create --dbname=$WP_DATABASE_NAME --dbuser=$WP_DATABASE_USR --dbpass=$WP_DATABASE_PWD --dbhost=$MYSQL_HOST --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
-    # wp core install --url=$DOMAIN_NAME/wordpress --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
-    # wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root
-    # wp theme install inspiro --activate --allow-root
-
-
-/usr/sbin/php-fpm7.3 --nodaemonize --allow-to-run-as-root  # c'est peut etre ca que l o doit mettre dans le dockerfile
-
-# -F, --nodaemonize
-#       force to stay in foreground, and ignore daemonize option from config file
-# -R, --allow-to-run-as-root
-#         Allow pool to run as root (disabled by default)
-# php-fpm #launch mysql server
-
-# --allow-root
+# exec "$@" is typically used to make the entrypoint a pass through that then runs the docker command.
+# It will replace the current running shell with the command that "$@" is pointing to.
+# By default, that variable points to the command line arguments.
+# To simplify : First it will exec everything and after do the CMD in the dockerfile
+exec "$@"

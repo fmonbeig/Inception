@@ -1,7 +1,7 @@
 [mysqld]
 
 # * Basic Settings
-user = root
+user = mysql  #avant ROOT
 port = 3306
 datadir = /var/lib/mysql
 pid-file = /run/mysqld/mysqld.pid

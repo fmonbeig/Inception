@@ -44,11 +44,21 @@ RUN chmod +x wp-cli.phar \
 
 
 COPY conf/ini.sh .
+COPY conf/www.conf /etc/php/7.3/fpm/pool.d
+#FIXME WP CONFIG ??
 RUN chmod +x ini.sh \
-&&	mkdir -p /var/www/html
-#peut etre faire un chown sur le www/html
+&&	mkdir -p /var/www/html \
+&&  mkdir -p /var/run/ \
+&&  mkdir -p /run/php/
 
 EXPOSE 9000
 
-ENTRYPOINT ["sh", "ini.sh"]
-#CMD
+ENTRYPOINT ["bash", "ini.sh"]
+CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize", "--allow-to-run-as-root"]
+
+
+# -F, --nodaemonize
+#       force to stay in foreground, and ignore daemonize option from config file
+# -R, --allow-to-run-as-root
+#         Allow pool to run as root (disabled by default)
+# php-fpm #launch mysql server

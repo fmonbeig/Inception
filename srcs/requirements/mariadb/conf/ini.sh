@@ -45,6 +45,6 @@ exec "$@"
 #------------INTERACTION------------#
 # 1- connection
 # Since we have delete root we have to connect with admin
-# mysql -u admin -p  (then the pw)
+# mysql -u admin -p  (then the pw) admin_password
 # 2- The database
 # SHOW DATABASES;
