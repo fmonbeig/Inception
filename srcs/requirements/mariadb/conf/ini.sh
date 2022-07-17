@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #set -e #Exit if we have a non-zero after a CMD
-#set -x #for more information in terminal(debugg)
+set -x #for more information in terminal(debugg)
 
 #First we have to launch mysql then we sleep until the server is available
 #The command "mysqladmin ping" return 0 when the server is up
@@ -20,14 +20,14 @@ mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
 #------------CREATE USER------------#
 #1 - ADMIN
 mysql -u root -e "CREATE USER IF NOT EXISTS '${MYSQL_ADMIN}'@'%' IDENTIFIED BY '${MYSQL_ADMIN_PASSWORD}';"
-mysql -u root -e "GRANT ALL ON *.* TO '${MYSQL_ADMIN}'@'%';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_ADMIN}'@'%';"
 #2 - USER (login42)
 mysql -u root -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_USERPASSWORD}';"
-mysql -u root -e "GRANT ALL ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
 
 #------------DELETE USER------------#
 #We don't need root anymore because we have ADMIN with all right
-mysql -u root -e "DELETE FROM mysql.user WHERE user='';"
+mysql -u root -e "DELETE FROM mysql.user WHERE user='';"   #delete anonymous user
 mysql -u root -e "DELETE FROM mysql.user WHERE user='root';"
 
 #------------RELOAD ALL USERS RULES------------#
@@ -45,6 +45,6 @@ exec "$@"
 #------------INTERACTION------------#
 # 1- connection
 # Since we have delete root we have to connect with admin
-# mysql -u admin -p  (then the pw) admin_password
+# mysql -u flad -p  (then the pw) flad_pwd
 # 2- The database
 # SHOW DATABASES;

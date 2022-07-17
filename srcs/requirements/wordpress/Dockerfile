@@ -22,26 +22,25 @@ RUN apt-get update -yq \
 	php7.3-xml \
 	php7.3-zip
 
-ENV WORDPRESS_ADMIN=admin \
-	WORDPRESS_ADMIN_PASSWORD=admin_password \
-	WORDPRESS_ADMIN_MAIL=fake_admin@student.42.fr \
-	WORDPRESS_USER=fmonbeig \
-	WORDPRESS_USER_PASSWORD=password \
-	WORDPRESS_USER_MAIL=fmonbeig@student.42.fr \
-	WORDPRESS_URL=fmonbeig.42.fr \
-	WORDPRESS_TITLE=Spinning_Top\
-	MYSQL_DATABASE=wordpress \
-	MYSQL_ROOT_PASSWORD=password \
-	MYSQL_USER=fmonbeig \
-	MYSQL_USERPASSWORD=password \
-	MYSQL_ADMIN=admin \
-	MYSQL_ADMIN_PASSWORD=admin_password \
-	MYSQL_PASSWORD=password
+# ENV MYSQL_DATABASE=wordpress \
+# 	MYSQL_ROOT_PASSWORD=password \
+# 	MYSQL_USER=fmonbeig \
+# 	MYSQL_USERPASSWORD=password \
+# 	MYSQL_ADMIN=flad \
+# 	MYSQL_ADMIN_PASSWORD=flad_pwd \
+# 	MYSQL_PASSWORD=password \
+# 	WORDPRESS_ADMIN=flad \
+# 	WORDPRESS_ADMIN_PASSWORD=flad_password \
+# 	WORDPRESS_ADMIN_MAIL=fake_admin@student.42.fr \
+# 	WORDPRESS_USER=fmonbeig \
+# 	WORDPRESS_USER_PASSWORD=password \
+# 	WORDPRESS_USER_MAIL=fmonbeig@student.42.fr \
+# 	WORDPRESS_URL=fmonbeig.42.fr \
+# 	WORDPRESS_TITLE=Spinning_Top
 
 RUN chmod +x wp-cli.phar \
 &&	mv wp-cli.phar /usr/local/bin/wp \
 &&	wp cli update
-
 
 COPY conf/ini.sh .
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d
@@ -55,7 +54,6 @@ EXPOSE 9000
 
 ENTRYPOINT ["bash", "ini.sh"]
 CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize", "--allow-to-run-as-root"]
-
 
 # -F, --nodaemonize
 #       force to stay in foreground, and ignore daemonize option from config file
