@@ -22,16 +22,15 @@ RUN apt-get update -yq \
 
 COPY conf/ini.sh .
 COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
-COPY conf/conf.cnf /etc/mysql/my.cnf
-COPY conf/conf.cnf /etc/my.cnf
-COPY conf/conf.cnf ~/my.cnf
+# COPY conf/conf.cnf /etc/mysql/my.cnf #FIXME  conf non pris en compte
+# COPY conf/conf.cnf /etc/my.cnf
+# COPY conf/conf.cnf ~/my.cnf
 
 RUN mkdir -p /var/run/mysqld \
 	&& mkdir -p /run/mysqld \
-	&& touch /var/run/mysqld/mysqld.sock \
 	&& chown -R mysql:root /run/mysqld \
 	&& chown -R mysql:root /var/run/mysqld \
-	&& chown -R mysql:root /var/lib/mysql \
+	&& touch /var/run/mysqld/mysqld.sock \
 	&& chmod +x ini.sh
 
 EXPOSE 3306

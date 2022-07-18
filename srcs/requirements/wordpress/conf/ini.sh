@@ -9,13 +9,13 @@ set -x #for more information in terminal(debugg)
  wp core download --allow-root --path=/var/www/html  # you can do command even if you are root
 
 #------------WAITING FOR MARIADB------------#
-# while ! mariadb -h mariadb -u${MYSQL_USER} -p${MYSQL_USERPASSWORD} ${MYSQL_DATABASE} &>/dev/null; do
-# 	sleep 2
-# done
+while ! mariadb -h mariadb -u${MYSQL_USER} -p${MYSQL_USERPASSWORD} ${MYSQL_DATABASE} &>/dev/null; do
+	sleep 2
+done
 # while ! mysqladmin -h mariadb -u ${MYSQL_USER} -p ${MYSQL_USERPASSWORD} ping; do
 # 	sleep 2
 # done
-sleep 10
+# sleep 10
 
 #------------CONFIG FILE------------#
 #creation of the wp-config.php

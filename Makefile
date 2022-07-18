@@ -6,7 +6,7 @@
 #    By: fmonbeig <fmonbeig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 14:48:02 by fmonbeig          #+#    #+#              #
-#    Updated: 2022/07/06 15:45:00 by fmonbeig         ###   ########.fr        #
+#    Updated: 2022/07/18 18:20:06 by fmonbeig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,31 +16,47 @@ filename		= /bin/echo -e -n "\x1b[30m\x1b[47m\x1b[1m$1\x1b[0m"
 
 NAME			= inception
 
-all:	dir
-		launch
+all:
+	@ sudo mkdir -p /home/fmonbeig/data/www
+	@ sudo mkdir -p /home/fmonbeig/data/database
+	@ sudo docker-compose -f ./srcs/docker-compose.yml up
 
+# all: dir launch
 
-dir:	mkdir -p /home/fmonbeig/data/www
-		mkdir -p /home/fmonbeig/data/database
+dir:
+		sudo mkdir -p /home/fmonbeig/data/www
+		sudo mkdir -p /home/fmonbeig/data/database
 
-launch:	docker compose -f srcs/docker-compose.yml -p $(NAME) up
-		$(call green," successfully created. ✅")
-		/bin/echo -e "\n\n🚀 You can go Deeper"
+# launch:
+# 			docker-compose -f ./srcs/docker-compose.yml -p $(NAME) up
+# 			$(call green," successfully created. ✅")
+# 			/bin/echo -e "\n\n🚀 You can go Deeper"
 
-clean:
-				/bin/echo "💦 Cleaning..."
-				rm -rf /home/fmonbeig/data/www/*
-				rm -rf /home/fmonbeig/data/database/*
-				$(call green,"Containers data are cleaned. ✅")
+# clean:
+# 				/bin/echo "💦 Cleaning..."
+# 				sudo rm -rf /home/fmonbeig/data/www
+# 				sudo rm -rf /home/fmonbeig/data/database
+# 				$(call green,"Containers data are cleaned. ✅")
 
-fclean:			clean
-				docker rm -f nginx
-				docker rm -f mariadb
-				docker rm -f wordpress
-				docker rmi -f nginx
-				docker rmi -f mariadb
-				docker rmi -f wordpress
+# fclean:			clean
+# 				sudo docker rm -f nginx
+# 				sudo docker rm -f mariadb
+# 				sudo docker rm -f wordpress
+# 				sudo docker rmi -f nginx
+# 				sudo docker rmi -f mariadb
+# 				sudo docker rmi -f wordpress
+
+down:
+	@ sudo docker-compose -f ./srcs/docker-compose.yml down
+
+clean: down
+	@ sudo docker container prune;
+
+fclean: clean
+	@ sudo rm -rf /home/fmonbeig/data/www
+	@ sudo rm -rf /home/fmonbeig/data/database
+	@ docker system prune -a
 
 re:				fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:			all clean fclean re dir launch

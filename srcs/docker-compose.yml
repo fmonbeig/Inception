@@ -1,47 +1,60 @@
-version: '3'
+version: '3.1'
+
+# services:
+# #------------MARIADB------------#
+#   mariadb:
+#     build: requirements/mariadb
+#     container_name: mariadb
+#     env_file: ./.env
+#     image: mariadb
+#     volumes:
+#     - /home/fmonbeig/data/database:/var/lib/mysql
+#     networks:
+#       - inception
+#     restart: always
 
 services:
-#------------MARIADB------------#
-  mariadb:
-    build: requirements/mariadb
-    container_name: mariadb
-    env_file: ./.env
-    image: mariadb
-    volumes:
-    - /home/fmonbeig/data/database:/var/lib/mysql
-    networks:
-      - inception
-    restart: always
+    mariadb:
+        build: requirements/mariadb
+        container_name: mariadb
+        env_file: ./.env
+        image: mariadb
+        networks:
+            - inception
+        volumes:
+          - /home/fmonbeig/data/database:/var/lib/mysql          # First is name of the volume then path in hostmachine
+        restart: always                         # Exit with code 137 + isn't restarted (visible with ps -a) but restart when start again the daemon
+
 
 #------------WORDPRESS------------#
-  wordpress:
-    depends_on:
-      - mariadb
-    build: requirements/wordpress
-    container_name: wordpress
-    env_file: ./.env
-    image : wordpress
-    volumes:
-    - /home/fmonbeig/data/www:/var/www/html
-    networks:
-      - inception
-    restart: always
+  # wordpress:
+  #   depends_on:
+  #     - mariadb
+  #   build: requirements/wordpress
+  #   container_name: wordpress
+  #   env_file: ./.env
+  #   image : wordpress
+  #   volumes:
+  #   - /home/fmonbeig/data/www:/var/www/html
+  #   networks:
+  #     - inception
+  #   restart: always
 
 #------------NGINX------------#
-  nginx:
-    depends_on:
-      - wordpress
-    build: requirements/nginx
-    container_name: nginx
-    env_file: ./.env
-    image : nginx
-    ports:
-      - "443:443"
-    volumes:
-    - /home/fmonbeig/data/www:/var/www/html  #it's the same that wordpress because html file have to be in this two place
-    networks:
-      - inception
-    restart: always
+  # nginx:
+  #   depends_on:
+  #     - wordpress
+  #   build: requirements/nginx
+  #   container_name: nginx
+  #   env_file: ./.env
+  #   image : nginx
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #   - /home/fmonbeig/data/www:/var/www/html  #it's the same that wordpress because html file have to be in this two place
+  #   networks:
+  #     - inception
+  #   restart: always
 
 #------------VOLUMES------------#
 # volumes:
