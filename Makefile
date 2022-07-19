@@ -6,7 +6,7 @@
 #    By: fmonbeig <fmonbeig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 14:48:02 by fmonbeig          #+#    #+#              #
-#    Updated: 2022/07/18 18:20:06 by fmonbeig         ###   ########.fr        #
+#    Updated: 2022/07/19 19:15:13 by fmonbeig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME			= inception
 all:
 	@ sudo mkdir -p /home/fmonbeig/data/www
 	@ sudo mkdir -p /home/fmonbeig/data/database
-	@ sudo docker-compose -f ./srcs/docker-compose.yml up
+	@ sudo docker-compose -f ./srcs/docker-compose.yml up --build
 
 # all: dir launch
 
