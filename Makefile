@@ -6,7 +6,7 @@
 #    By: fmonbeig <fmonbeig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 14:48:02 by fmonbeig          #+#    #+#              #
-#    Updated: 2022/07/20 13:05:15 by fmonbeig         ###   ########.fr        #
+#    Updated: 2022/07/20 13:07:52 by fmonbeig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,9 @@ all:
 	@ sudo mkdir -p /home/fmonbeig/data/www
 	@ sudo mkdir -p /home/fmonbeig/data/database
 	@ sudo docker-compose -f ./srcs/docker-compose.yml up -d --build
+
+up:
+	@ sudo docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:
 	@ sudo docker-compose -f ./srcs/docker-compose.yml down
@@ -28,4 +31,4 @@ fclean: clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re down launch
+.PHONY:			all clean fclean re down launch up
